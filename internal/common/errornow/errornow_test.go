@@ -3,7 +3,7 @@ package errornow_test
 import (
 	"testing"
 
-	"gobackup/internal/common/errornow"
+	"watdowedo/internal/common/errornow"
 )
 
 type testKillComment struct {
