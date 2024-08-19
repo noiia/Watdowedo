@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html lang="eng">
 	<head>
-		{{.Header}}
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" type="text/css" href="../static/css/output.css" />
 		<title>Watdowedo - Home</title>
 	</head>
 	<body>
-		<navbar>
-			{{.Navbar}}
-		</navbar>
-		<span class="w-[600px]">
-			<h1 class="text-4xl text-center mx-32 my-16 mb-20">
-				A new journey in sight or you just want to discover the best addresses ?
-			</h1>
-		</span>
-		<div
-			class="bg-primary w-56 mx-auto p-6 rounded-md relative z-10 hover:scale-105 transition duration-700 ease-in-out transform-gpu"
-		>
-			<a href="./tripbuilder">
-				<button class="text-2xl">Try our trip builder</button>
-			</a>
+		<div class="bg-primary navbar rounded-box">
+			<h1 class="text-3xl p-8">Watdowedo</h1>
+		</div>
+		<div class="justify-center items-center inline mx-16">
+			<span class="w-[600px]">
+				<h1 class="text-4xl text-center">
+					A new journey in sight or you just want to discover the best addresses
+					?
+				</h1>
+			</span>
+			<span
+				class="bg-primary p-6 hover:scale-110 transition duration-700 ease-in-out transform-gpu"
+			>
+				<a href="./trip-builder">
+					<button class="text-2xl">Try our trip builder</button>
+				</a>
+			</span>
 		</div>
 	</body>
-	<footer>
-		{{.Footer}}
-	</footer>
 </html>
