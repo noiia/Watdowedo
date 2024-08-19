@@ -7,7 +7,7 @@ import (
 )
 
 func RenderTemplates(w http.ResponseWriter, tmpl string) {
-	template, err := template.ParseFiles(filepath.Join("templates", tmpl+".page.tmpl"))
+	template, err := template.ParseFiles(filepath.Join("src", "templates", tmpl+".page.tmpl"))
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
