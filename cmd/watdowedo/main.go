@@ -16,7 +16,7 @@ import (
 )
 
 func init() {
-	if err := godotenv.Load("../../.env"); err != nil {
+	if err := godotenv.Load(".env"); err != nil {
 
 		log.Fatal(err)
 	}
@@ -34,7 +34,7 @@ func main() {
 
 	SERVER_PORT := os.Getenv("LISTEN_ADDR")
 
-	assetsPath := filepath.Join("src", "assets")
+	assetsPath := filepath.Join("web", "templates")
 	fs := http.FileServer(http.Dir(assetsPath))
 	http.Handle("/"+assetsPath+"/", http.StripPrefix("/"+assetsPath, fs))
 
