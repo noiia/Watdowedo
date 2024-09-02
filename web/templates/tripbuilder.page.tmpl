@@ -11,15 +11,45 @@
 		<div class="bg-primary">
 			<h1 class="text-3xl p-8">Watdowedo</h1>
 		</div>
-		<form class="inline-block">
-			<input type="text" class="mx-auto" />
-			<div>
-				<input type="radio" />Petit marcheur (1-5 km / jour)<input
-					type="radio"
-				/>Marcheur (+5 km / jour) <input type="radio" />Bon marcheur (+10 km /
-				jour) <input type="checkbox" />Invalide
+		<form>
+			<div class="mx-auto">
+				<div class="mx-auto my-10">
+					Your basement :
+					<input
+						type="text"
+						placeholder="Paris, New york, ..."
+						class="mx-auto input input-primary input-bordered w-full"
+					/>
+				</div>
+
+				<div class="grid grid-cols-3 gap-4">
+					<fieldset>
+						<input
+							type="radio"
+							class="radio radio-primary p-6"
+							id="sm-walker"
+							name="walking-level"
+						/><label for="sm-walker">Small walker (1-5 km / day)</label
+						><input
+							type="radio"
+							class="radio radio-primary p-6"
+							id="walker"
+							name="walking-level"
+						/>
+						<label for="walker">Walker (+5 km / day)</label>
+						<input
+							type="radio"
+							class="radio radio-primary p-6"
+							id="gd-walker"
+							name="walking-level"
+						/><label for="gd-walker">Good walker (+10 km / day)</label>
+					</fieldset>
+				</div>
+				<div>
+					<input type="checkbox" class="toggle toggle-primary" />Invalide
+				</div>
+				<div><button type="submit" class="btn btn-primary"/> Apply</button></div>
 			</div>
-			<input type="submit" />
 		</form>
 	</body>
 </html>
