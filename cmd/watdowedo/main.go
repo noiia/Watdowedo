@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -17,7 +16,6 @@ import (
 
 func init() {
 	if err := godotenv.Load(".env"); err != nil {
-
 		log.Fatal(err)
 	}
 }
@@ -34,14 +32,14 @@ func main() {
 
 	SERVER_PORT := os.Getenv("LISTEN_ADDR")
 
-	assetsPath := filepath.Join("web", "templates")
+	assetsPath := filepath.Join("web", "static")
 	fs := http.FileServer(http.Dir(assetsPath))
-	http.Handle("/"+assetsPath+"/", http.StripPrefix("/"+assetsPath, fs))
+
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	http.HandleFunc("/home", home.HomeHandler)
 	http.HandleFunc("/trip-builder", tripbuilder.TripBuilderHandler)
 
-	fmt.Println("(http://localhost" + SERVER_PORT + "/home)")
 	logger.Info("starting server at http://localhost" + SERVER_PORT + "/home")
 
 	http.ListenAndServe(SERVER_PORT, nil)
