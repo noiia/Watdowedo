@@ -7,58 +7,131 @@
 		<link rel="stylesheet" type="text/css" href="../static/css/output.css" />
 		<title>Watdowedo - Home</title>
 	</head>
-	<body>
+	<body class="bg-false-white">
 		<navbar>
 			<div class="bg-primary">
 				<h1 class="text-3xl p-8">Watdowedo</h1>
 			</div>
 		</navbar>
 		<form>
-			<div class="flex">
+			<div>
+				<!-- City text box -->
 				<div class="mx-auto my-10 text-xl">
-					Your basement :
-					<input
-						type="text"
-						placeholder="Paris, New york, ..."
-						class="mx-auto input input-primary input-bordered w-1/5 h-4 p-4 text-xl"
-					/>
+					<div class="flex justify-center items-center">
+						<p class="box-border w-40">Your basement :</p>
+						<input
+							type="text"
+							placeholder="Paris, New york, ..."
+							class="shadow appearance-none border w-1/2 over-cellphone:w-1/5 h-4 p-4 text-xl"
+						/>
+					</div>
 				</div>
-				<div class="">
-					<fieldset>
-						<div class="">
-							<input
-								type="radio"
-								class="p-6"
-								id="sm-walker"
-								name="walking-level"
-							/><label for="sm-walker">Small walker (1-5 km / day)</label>
-						</div>
-						<div>
-							<input
-								type="radio"
-								class="p-6"
-								id="walker"
-								name="walking-level"
+
+				<!-- Radio walking level -->
+				<div
+					class="grid grid-cols-3 gap-2 over-cellphone:gap-10 px-2 over-cellphone:px-14 py-2 over-cellphone:py-10"
+				>
+					<div>
+						<input
+							type="radio"
+							class="hidden"
+							id="sm-walker"
+							name="walking-level"
+						/><label
+							for="sm-walker"
+							class="rounded-md radio-checked:bg-secondary-orange block p-6"
+							><img
+								class="box-border h-14 w-14 mx-auto"
+								src="../static/images/icon/person-walking-slowly.png"
 							/>
-							<label for="walker">Walker (+5 km / day)</label>
-						</div>
-						<div>
-							<input
-								type="radio"
-								class="p-6"
-								id="gd-walker"
-								name="walking-level"
-							/><label for="gd-walker">Good walker (+10 km / day)</label>
-						</div>
-					</fieldset>
+							<p class="text-center">Small walker (1-5 km / day)</p></label
+						>
+					</div>
+					<div>
+						<input
+							type="radio"
+							class="hidden"
+							id="walker"
+							name="walking-level"
+							checked
+						/>
+						<label
+							for="walker"
+							class="rounded-md radio-checked:bg-secondary-orange block p-6 min:h-72 sm:h-auto"
+							><img
+								class="box-border h-14 w-14 mx-auto"
+								src="../static/images/icon/person-walking.png"
+							/>
+							<p class="text-center">Walker (+5 km / day)</p>
+						</label>
+					</div>
+					<div>
+						<input
+							type="radio"
+							class="hidden"
+							id="gd-walker"
+							name="walking-level"
+						/><label
+							for="gd-walker"
+							class="rounded-md radio-checked:bg-secondary-orange block p-6"
+							><img
+								class="box-border h-14 w-14 mx-auto"
+								src="../static/images/icon/person-running.png"
+							/>
+							<p class="text-center">Good walker (+10 km / day)</p></label
+						>
+					</div>
 				</div>
-				<div>
-					<input type="checkbox" class="toggle toggle-primary" />Invalide
+
+				<!-- Radio valid or not-->
+				<div
+					class="grid grid-cols-2 gap-2 over-cellphone:gap-10 py-2 over-cellphone:py-10 px-2 over-cellphone:px-32"
+				>
+					<div>
+						<input
+							type="radio"
+							class="hidden"
+							id="invalid"
+							name="validity"
+						/><label
+							for="invalid"
+							class="rounded-md radio-checked:bg-secondary-orange block p-6"
+							><img
+								class="box-border h-14 w-14 mx-auto"
+								src="../static/images/icon/disability.png"
+							/>
+							<p class="text-center">Invalid</p></label
+						>
+					</div>
+					<div>
+						<input
+							type="radio"
+							class="hidden"
+							id="valid"
+							name="validity"
+							checked
+						/><label
+							for="valid"
+							class="rounded-md radio-checked:bg-secondary-orange block p-6"
+							><img
+								class="box-border h-14 w-14 mx-auto"
+								src="../static/images/icon/person-walking.png"
+							/>
+							<p class="text-center">Valid</p></label
+						>
+					</div>
 				</div>
-				<div class="box-border h-auto w-auto bg-primary">
-					<button type="submit">Apply</button>
+
+				<!-- Apply button -->
+				<div
+					class="sticky box-border h-12 over-cellphone:w-32 over-cellphone:absolute over-cellphone:right-10 lg:right-24 bg-secondary-orange over-cellphone:rounded-lg text-xl font-semibold flex justify-center items-center"
+				>
+					<button type="submit">Apply!</button>
 				</div>
 			</div>
 		</form>
 	</body>
+	<a href="https://www.flaticon.com/free-icons/walk" title="walk icons"
+		>Walk icons created by Freepik - Flaticon</a
+	>
 </html>
