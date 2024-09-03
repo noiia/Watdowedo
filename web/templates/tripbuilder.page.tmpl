@@ -8,47 +8,56 @@
 		<title>Watdowedo - Home</title>
 	</head>
 	<body>
-		<div class="bg-primary">
-			<h1 class="text-3xl p-8">Watdowedo</h1>
-		</div>
+		<navbar>
+			<div class="bg-primary">
+				<h1 class="text-3xl p-8">Watdowedo</h1>
+			</div>
+		</navbar>
 		<form>
-			<div class="mx-auto">
-				<div class="mx-auto my-10">
+			<div class="flex">
+				<div class="mx-auto my-10 text-xl">
 					Your basement :
 					<input
 						type="text"
 						placeholder="Paris, New york, ..."
-						class="mx-auto input input-primary input-bordered w-full"
+						class="mx-auto input input-primary input-bordered w-1/5 h-4 p-4 text-xl"
 					/>
 				</div>
-
-				<div class="grid grid-cols-3 gap-4">
+				<div class="">
 					<fieldset>
-						<input
-							type="radio"
-							class="radio radio-primary p-6"
-							id="sm-walker"
-							name="walking-level"
-						/><label for="sm-walker">Small walker (1-5 km / day)</label
-						><input
-							type="radio"
-							class="radio radio-primary p-6"
-							id="walker"
-							name="walking-level"
-						/>
-						<label for="walker">Walker (+5 km / day)</label>
-						<input
-							type="radio"
-							class="radio radio-primary p-6"
-							id="gd-walker"
-							name="walking-level"
-						/><label for="gd-walker">Good walker (+10 km / day)</label>
+						<div class="">
+							<input
+								type="radio"
+								class="p-6"
+								id="sm-walker"
+								name="walking-level"
+							/><label for="sm-walker">Small walker (1-5 km / day)</label>
+						</div>
+						<div>
+							<input
+								type="radio"
+								class="p-6"
+								id="walker"
+								name="walking-level"
+							/>
+							<label for="walker">Walker (+5 km / day)</label>
+						</div>
+						<div>
+							<input
+								type="radio"
+								class="p-6"
+								id="gd-walker"
+								name="walking-level"
+							/><label for="gd-walker">Good walker (+10 km / day)</label>
+						</div>
 					</fieldset>
 				</div>
 				<div>
 					<input type="checkbox" class="toggle toggle-primary" />Invalide
 				</div>
-				<div><button type="submit" class="btn btn-primary"/> Apply</button></div>
+				<div class="box-border h-auto w-auto bg-primary">
+					<button type="submit">Apply</button>
+				</div>
 			</div>
 		</form>
 	</body>

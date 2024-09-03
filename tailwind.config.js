@@ -30,5 +30,5 @@ module.exports = {
 			},
 		},
 	},
-	plugins: [require("autoprefixer"), require("daisyui")],
+	plugins: [require("autoprefixer")],
 };
