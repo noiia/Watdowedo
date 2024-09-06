@@ -85,7 +85,7 @@
 
 				<!-- Radio valid or not-->
 				<div
-					class="grid grid-cols-2 gap-2 over-cellphone:gap-10 py-2 over-cellphone:py-10 px-2 over-cellphone:px-32"
+					class="grid grid-cols-2 gap-2 over-cellphone:gap-10 lg:gap-32 lg:px-56 xl:px-72 py-2 over-cellphone:py-10 px-2 over-cellphone:px-32"
 				>
 					<div>
 						<input
@@ -122,18 +122,70 @@
 					</div>
 				</div>
 
+				<!-- Radio has a car or not -->
+				<div
+					class="grid grid-cols-2 gap-2 over-cellphone:gap-10 lg:gap-32 lg:px-56 xl:px-72 py-2 over-cellphone:py-10 px-2 over-cellphone:px-32"
+				>
+					<div>
+						<input type="radio" class="hidden" id="car" name="drive" /><label
+							for="car"
+							class="rounded-md radio-checked:bg-secondary-orange block p-6"
+							><img
+								class="box-border h-14 w-14 mx-auto"
+								src="../static/images/icon/disability.png"
+							/>
+							<p class="text-center">I have a car</p></label
+						>
+					</div>
+					<div>
+						<input
+							type="radio"
+							class="hidden"
+							id="foots"
+							name="drive"
+							checked
+						/><label
+							for="foots"
+							class="rounded-md radio-checked:bg-secondary-orange block p-6"
+							><img
+								class="box-border h-14 w-14 mx-auto"
+								src="../static/images/icon/person-walking.png"
+							/>
+							<p class="text-center">I have my foots</p></label
+						>
+					</div>
+				</div>
+				<!-- Activities the people want to do-->
+				<div>
+					<ul>
+						<li>Sport</li>
+						<li>History</li>
+						<li>Beach</li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+					</ul>
+				</div>
 				<!-- Apply button -->
 				<div
-					class="sticky box-border h-12 over-cellphone:w-32 over-cellphone:absolute over-cellphone:right-10 lg:right-24 bg-secondary-orange over-cellphone:rounded-lg text-xl font-semibold flex justify-center items-center"
+					class="over-cellphone:p-8 over-cellphone:flex over-cellphone:justify-end"
 				>
-					<button type="submit">Apply!</button>
+					<div
+						class="box-border h-12 over-cellphone:w-32 lg:right-24 bg-secondary-orange over-cellphone:rounded-lg text-xl font-semibold flex justify-center items-center"
+					>
+						<button type="submit">Apply!</button>
+					</div>
 				</div>
 			</div>
 		</form>
 	</body>
 	<!-- footer -->
-	<footer>
-		<div class="grid grid-cols-4 bg-neutral-content py-4">
+	<footer class="bg-neutral-content bottom-0 inset-x-0 pt-6 pb-8">
+		<div class="grid grid-cols-2 over-cellphone:grid-cols-4 py-4 gap-4">
 			<div class="footer-logo">
 				<img
 					src="images/Icones/logo_blanc_entier.png"
@@ -142,27 +194,28 @@
 				/>
 			</div>
 			<div class="footer-society-list">
-				<h1>Société</h1>
-				<ul>
+				<h1 class="text-center font-semibold text-xl pb-6">Société</h1>
+				<ul class="text-center">
 					<li>Condition d'utilisation</li>
 					<li>Politique de confidentialité</li>
 					<li>Politique de cookies</li>
-					<li>Carrière</li>
 					<li>A propos de nous</li>
 				</ul>
 			</div>
 			<div class="footer-help-list">
-				<h1>Aide</h1>
-				<ul>
+				<h1 class="text-center font-semibold text-xl pb-6">Aide</h1>
+				<ul class="text-center">
 					<li>FAQs</li>
 					<li>Nous contacter</li>
 				</ul>
 			</div>
 			<div>
-				<h1>Follow us</h1>
-				<ul class="grid grid-cols-2 gap-4 p-4">
+				<h1 class="text-center font-semibold text-xl pb-6">Follow us</h1>
+				<ul class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4">
 					<a href="https://www.facebook.com">
-						<li class="box-border h-14 w-14">
+						<li
+							class="mx-auto box-border h-auto max-h-14 over-cellphone:h-14 w-auto max-w-14 over-cellphone:w-14"
+						>
 							<img
 								src="../static/images/logos/logo_facebook.png"
 								alt="logo facebook"
@@ -170,7 +223,9 @@
 						</li>
 					</a>
 					<a href="https://www.instagram.com">
-						<li class="box-border h-14 w-14">
+						<li
+							class="mx-auto box-border h-auto max-h-14 over-cellphone:h-14 w-auto max-w-14 over-cellphone:w-14"
+						>
 							<img
 								src="../static/images/logos/logo_insta.png"
 								alt="logo instagram"
@@ -178,7 +233,9 @@
 						</li>
 					</a>
 					<a href="https://www.youtube.com">
-						<li class="box-border h-14 w-14">
+						<li
+							class="mx-auto box-border h-auto max-h-14 over-cellphone:h-14 w-auto max-w-14 over-cellphone:w-14"
+						>
 							<img
 								src="../static/images/logos/logo_ytb.png"
 								alt="logo youtube"
@@ -186,7 +243,9 @@
 						</li>
 					</a>
 					<a href="https://www.twitter.com">
-						<li class="box-border h-14 w-14">
+						<li
+							class="mx-auto box-border h-auto max-h-14 over-cellphone:h-14 w-auto max-w-14 over-cellphone:w-14"
+						>
 							<img src="../static/images/logos/logo_X.png" alt="logo X" />
 						</li>
 					</a>
