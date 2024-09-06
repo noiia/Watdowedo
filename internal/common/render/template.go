@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"net/http"
 	"path/filepath"
+	basetemplate "watdowedo/web/templates"
 )
 
 func RenderTemplates(w http.ResponseWriter, tmpl string) {
@@ -13,6 +14,10 @@ func RenderTemplates(w http.ResponseWriter, tmpl string) {
 
 		return
 	}
+	base := basetemplate.LoadBase()
+	if err := template.Execute(w, base); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 
-	template.Execute(w, nil)
+		return
+	}
 }
