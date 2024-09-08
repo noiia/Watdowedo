@@ -18,6 +18,7 @@ func init() {
 	if err := godotenv.Load(".env"); err != nil {
 		log.Fatal(err)
 	}
+
 }
 
 func main() {
@@ -35,18 +36,18 @@ func main() {
 	assetsPath := filepath.Join("web", "static")
 	fs := http.FileServer(http.Dir(assetsPath))
 
-	mux := http.NewServeMux()
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
-	mux.Handle("/static/", http.StripPrefix("/static/", fs))
+	http.HandleFunc("/home", home.HomeHandler)
 
-	mux.HandleFunc("/home", home.HomeHandler)
+	http.HandleFunc("/tripbuilder", tripbuilder.TripBuilderHandler)
 
-	mux.HandleFunc("/tripbuilder", tripbuilder.TripBuilderHandler)
-	mux.HandleFunc("POST /tripbuilder/api", tripbuilder.GetFormContent)
+	http.HandleFunc("/tripbuilder/form", tripbuilder.GetFormData)
 
 	logger.Info("starting server at http://localhost" + SERVER_PORT + "/home")
 
-	if err := http.ListenAndServe(SERVER_PORT, mux); err != nil {
+	if err := http.ListenAndServe(SERVER_PORT, nil); err != nil {
 		logger.Error("Server internal error : " + err.Error())
 	}
+
 }
