@@ -35,12 +35,18 @@ func main() {
 	assetsPath := filepath.Join("web", "static")
 	fs := http.FileServer(http.Dir(assetsPath))
 
-	http.Handle("/static/", http.StripPrefix("/static/", fs))
+	mux := http.NewServeMux()
 
-	http.HandleFunc("/home", home.HomeHandler)
-	http.HandleFunc("/trip-builder", tripbuilder.TripBuilderHandler)
+	mux.Handle("/static/", http.StripPrefix("/static/", fs))
+
+	mux.HandleFunc("/home", home.HomeHandler)
+
+	mux.HandleFunc("/tripbuilder", tripbuilder.TripBuilderHandler)
+	mux.HandleFunc("POST /tripbuilder/api", tripbuilder.GetFormContent)
 
 	logger.Info("starting server at http://localhost" + SERVER_PORT + "/home")
 
-	http.ListenAndServe(SERVER_PORT, nil)
+	if err := http.ListenAndServe(SERVER_PORT, mux); err != nil {
+		logger.Error("Server internal error : " + err.Error())
+	}
 }
