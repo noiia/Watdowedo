@@ -2,23 +2,24 @@ package tripbuilder
 
 import (
 	"fmt"
-	"io"
 	"net/http"
+	"net/url"
 )
 
-func GetFormContent(w http.ResponseWriter, r *http.Request) {
+func GetFormData(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+
 	if r.Method != http.MethodPost {
 		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
 		return
 	}
 
-	body, err := io.ReadAll(r.Body)
+	resp, err := http.PostForm("http://www.watdowedo.local/tripbuilder/form", url.Values{"City": {"Values"}})
 	if err != nil {
-		http.Error(w, "Failed to read request body", http.StatusInternalServerError)
-		return
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
-
-	fmt.Println("Données reçues :", string(body))
-
-	fmt.Fprintf(w, "Données reçues avec succès")
+	fmt.Println(resp)
+	return
 }

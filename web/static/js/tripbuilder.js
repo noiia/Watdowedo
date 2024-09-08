@@ -10,7 +10,7 @@ function postFormData() {
 	);
 	console.log(jsonObject);
 
-	fetch("http://www.watdowedo.local/tripbuilder/api", {
+	fetch("http://www.watdowedo.local/tripbuilder/form", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
