@@ -2,24 +2,13 @@ package main
 
 import (
 	"flag"
-	"log"
 	"net/http"
-	"os"
 	"path/filepath"
 
 	"watdowedo/internal/common/logger"
 	"watdowedo/internal/pageshandler/home"
 	"watdowedo/internal/pageshandler/tripbuilder"
-
-	"github.com/joho/godotenv"
 )
-
-func init() {
-	if err := godotenv.Load(".env"); err != nil {
-		log.Fatal(err)
-	}
-
-}
 
 func main() {
 	verbose := flag.Bool("v", false, "verbose output in terminal")
@@ -31,22 +20,26 @@ func main() {
 		panic(err)
 	}
 
-	SERVER_PORT := os.Getenv("LISTEN_ADDR")
-
 	assetsPath := filepath.Join("web", "static")
 	fs := http.FileServer(http.Dir(assetsPath))
 
-	http.Handle("/static/", http.StripPrefix("/static/", fs))
+	router := http.NewServeMux()
 
-	http.HandleFunc("/home", home.HomeHandler)
+	server := http.Server{
+		Addr:    ":8080",
+		Handler: router,
+	}
 
-	http.HandleFunc("/tripbuilder", tripbuilder.TripBuilderHandler)
+	router.Handle("/static/", http.StripPrefix("/static/", fs))
 
-	http.HandleFunc("/tripbuilder/form", tripbuilder.GetFormData)
+	router.HandleFunc("GET /home", home.HomeHandler)
 
-	logger.Info("starting server at http://localhost" + SERVER_PORT + "/home")
+	router.HandleFunc("GET /tripbuilder", tripbuilder.TripBuilderHandler)
+	router.HandleFunc("POST /tripbuilder/form", tripbuilder.GetFormData)
 
-	if err := http.ListenAndServe(SERVER_PORT, nil); err != nil {
+	logger.Info("starting server at http://localhost" + server.Addr + "/home")
+
+	if err := server.ListenAndServe(); err != nil {
 		logger.Error("Server internal error : " + err.Error())
 	}
 
