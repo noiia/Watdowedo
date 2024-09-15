@@ -4,16 +4,20 @@
 		{{.Header}}
 		<title>Watdowedo - Home</title>
 	</head>
-	<body class="bg-false-white">
+	<body class="bg-white">
 		<navbar>
-			{{.Navbar}}
+			<img
+				src="../static/images/logos/watdowedo_full_logo.png"
+				alt="logo_watdowedo"
+				class="mx-auto"
+			/>
 		</navbar>
 		<form onsubmit="postFormData()">
 			<div>
 				<!-- City text box -->
-				<div class="mx-auto my-10 text-xl">
+				<div class="mx-auto my-10 text-2xl">
 					<div class="flex justify-center items-center">
-						<p class="box-border w-40">Your basement :</p>
+						<p class="p-4">Your basement :</p>
 						<input
 							type="text"
 							placeholder="Paris, New york, ..."
@@ -24,9 +28,9 @@
 
 				<!-- Radio walking level -->
 				<div
-					class="grid grid-cols-3 gap-2 over-cellphone:gap-10 px-2 over-cellphone:px-14 py-2 over-cellphone:py-10"
+					class="grid grid-cols-[auto_370px_auto] gap-2 over-cellphone:gap-[100px] mx-auto py-2 over-cellphone:py-10"
 				>
-					<div>
+					<div class="w-[370px] justify-self-end">
 						<input
 							type="radio"
 							class="hidden"
@@ -34,7 +38,7 @@
 							name="walking-level"
 						/><label
 							for="sm-walker"
-							class="rounded-md radio-checked:bg-secondary-orange block p-6"
+							class="rounded-md radio-checked:bg-primary bg-zinc-300 block p-6 justify-self-end"
 							><img
 								class="box-border h-14 w-14 mx-auto"
 								src="../static/images/icon/person-walking-slowly.png"
@@ -42,7 +46,7 @@
 							<p class="text-center">Small walker (1-5 km / day)</p></label
 						>
 					</div>
-					<div>
+					<div class="w-[370px] max-w-[370px] justify-self-center">
 						<input
 							type="radio"
 							class="hidden"
@@ -52,7 +56,7 @@
 						/>
 						<label
 							for="walker"
-							class="rounded-md radio-checked:bg-secondary-orange block p-6 min:h-72 sm:h-auto"
+							class="rounded-md radio-checked:bg-primary bg-zinc-300 block p-6 min:h-72 sm:h-auto"
 							><img
 								class="box-border h-14 w-14 mx-auto"
 								src="../static/images/icon/person-walking.png"
@@ -60,7 +64,7 @@
 							<p class="text-center">Walker (+5 km / day)</p>
 						</label>
 					</div>
-					<div>
+					<div class="w-[370px] justify-self-start">
 						<input
 							type="radio"
 							class="hidden"
@@ -68,7 +72,7 @@
 							name="walking-level"
 						/><label
 							for="gd-walker"
-							class="rounded-md radio-checked:bg-secondary-orange block p-6"
+							class="rounded-md radio-checked:bg-primary bg-zinc-300 block p-6"
 							><img
 								class="box-border h-14 w-14 mx-auto"
 								src="../static/images/icon/person-running.png"
@@ -80,9 +84,9 @@
 
 				<!-- Radio valid or not-->
 				<div
-					class="grid grid-cols-2 gap-2 over-cellphone:gap-10 lg:gap-32 lg:px-56 xl:px-72 py-2 over-cellphone:py-10 px-2 over-cellphone:px-32"
+					class="grid grid-cols-2 gap-2 over-cellphone:gap-[100px] mx-auto py-2 over-cellphone:py-10"
 				>
-					<div>
+					<div class="w-[370px] justify-self-end">
 						<input
 							type="radio"
 							class="hidden"
@@ -90,7 +94,7 @@
 							name="validity"
 						/><label
 							for="invalid"
-							class="rounded-md radio-checked:bg-secondary-orange block p-6"
+							class="rounded-md radio-checked:bg-primary bg-zinc-300 block p-6"
 							><img
 								class="box-border h-14 w-14 mx-auto"
 								src="../static/images/icon/disability.png"
@@ -98,7 +102,7 @@
 							<p class="text-center">Invalid</p></label
 						>
 					</div>
-					<div>
+					<div class="w-[370px] justify-self-start">
 						<input
 							type="radio"
 							class="hidden"
@@ -107,7 +111,7 @@
 							checked
 						/><label
 							for="valid"
-							class="rounded-md radio-checked:bg-secondary-orange block p-6"
+							class="rounded-md radio-checked:bg-primary bg-zinc-300 block p-6"
 							><img
 								class="box-border h-14 w-14 mx-auto"
 								src="../static/images/icon/person-walking.png"
@@ -119,45 +123,48 @@
 
 				<!-- Radio has a car or not -->
 				<div
-					class="grid grid-cols-2 gap-2 over-cellphone:gap-10 lg:gap-32 lg:px-56 xl:px-72 py-2 over-cellphone:py-10 px-2 over-cellphone:px-32"
+					class="grid grid-cols-2 gap-2 over-cellphone:gap-[100px] mx-auto py-2 over-cellphone:py-10"
 				>
-					<div>
-						<input type="radio" class="hidden" id="car" name="drive" /><label
+					<div class="w-[370px] justify-self-end">
+						<input type="radio" class="hidden" id="car" name="drive" />
+						<label
 							for="car"
-							class="rounded-md radio-checked:bg-secondary-orange block p-6"
-							><img
+							class="rounded-md radio-checked:bg-primary bg-zinc-300 block p-6"
+						>
+							<img
 								class="box-border h-14 w-14 mx-auto"
 								src="../static/images/icon/side-car.png"
 							/>
-							<p class="text-center">I have a car</p></label
-						>
+							<p class="text-center">I have a car</p>
+						</label>
 					</div>
-					<div>
+					<div class="w-[370px] justify-self-start">
 						<input
 							type="radio"
 							class="hidden"
 							id="foots"
 							name="drive"
 							checked
-						/><label
+						/>
+						<label
 							for="foots"
-							class="rounded-md radio-checked:bg-secondary-orange block p-6"
-							><img
+							class="rounded-md radio-checked:bg-primary bg-zinc-300 block p-6"
+						>
+							<img
 								class="box-border h-14 w-14 mx-auto"
 								src="../static/images/icon/person-walking.png"
 							/>
-							<p class="text-center">
-								I will use public transports only
-							</p></label
-						>
+							<p class="text-center">I will use public transports only</p>
+						</label>
 					</div>
 				</div>
+
 				<!-- Apply button -->
 				<div
 					class="over-cellphone:p-8 over-cellphone:flex over-cellphone:justify-end"
 				>
 					<div
-						class="box-border h-12 over-cellphone:w-32 lg:right-24 bg-secondary-orange over-cellphone:rounded-lg text-xl font-semibold flex justify-center items-center"
+						class="box-border h-12 over-cellphone:h-20 over-cellphone:w-52 lg:mx-auto bg-primary over-cellphone:rounded-lg text-2xl font-semibold flex justify-center items-center hover:scale-110 transition-all"
 					>
 						<input type="submit" value="Apply!" />
 					</div>
