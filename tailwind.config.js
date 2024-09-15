@@ -14,7 +14,7 @@ module.exports = {
 				display: ["Inter", "system-ui", "sans-serif"],
 			},
 			colors: {
-				primary: "#D97925",
+				primary: "#F0C9A7",
 				"secondary-orange": "#E1934F",
 				"primary-content": "#000813",
 				secondary: "#3d8a00",

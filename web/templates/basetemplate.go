@@ -91,6 +91,7 @@ func LoadBase() Page {
 				<a href="https://www.flaticon.com/free-icons/walk" title="walk icons"
 					>Icons created by Freepik - Flaticon</a
 				>
+				<a href="https://www.flaticon.com/fr/icones-gratuites/angleterre" title="angleterre icônes">Angleterre icônes créées par IconMarketPK - Flaticon</a>
 			</div>
 		`,
 	}
