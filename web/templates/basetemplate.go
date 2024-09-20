@@ -15,10 +15,21 @@ func LoadBase() Page {
 			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 			<link rel="stylesheet" type="text/css" href="../static/css/output.css"/>`,
 
-		Navbar: `<img
-					src="../static/images/logos/watdowedo_full_logo.png"
-					alt="logo_watdowedo"
-				/>`,
+		Navbar: `
+		<div class="flex flex-wrap">
+		<a href="./home">
+			<img
+				src="../static/images/logos/watdowedo_full_logo.png"
+				alt="logo_watdowedo"
+			/>
+		</a>
+		<div class="flex flex-wrap items-center justify-self-end list-none">
+				<li>Best Trips</li>
+				<li>Trip Builder</li>
+				<li>Sign in</li>
+			</div>
+		</div>
+			`,
 		Footer: `
 		<div class="bg-neutral-content bottom-0 inset-x-0 pt-6 pb-8">
 			<div class="grid grid-cols-2 over-cellphone:grid-cols-4 py-4 gap-4">
