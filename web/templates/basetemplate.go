@@ -16,19 +16,34 @@ func LoadBase() Page {
 			<link rel="stylesheet" type="text/css" href="../static/css/output.css"/>`,
 
 		Navbar: `
-		<div class="flex flex-wrap">
-		<a href="./home">
-			<img
-				src="../static/images/logos/watdowedo_full_logo.png"
-				alt="logo_watdowedo"
-			/>
-		</a>
-		<div class="flex flex-wrap items-center justify-self-end list-none">
-				<li>Best Trips</li>
-				<li>Trip Builder</li>
-				<li>Sign in</li>
+		<div class="grid grid-cols-2 gap-auto">
+				<a href="./home">
+					<img
+						src="../static/images/logos/watdowedo_full_logo.png"
+						alt="logo_watdowedo"
+					/>
+				</a>
+				<div class="grid grid-cols-3 gap-10 list-none">
+					<a
+						href=""
+						class="m-auto box-border h-[75px] w-[150px] rounded hover:bg-slate-300 transition-all flex justify-center items-center"
+					>
+						<li class="m-auto">Trips</li>
+					</a>
+					<a
+						href=""
+						class="m-auto box-border h-[75px] w-[150px] rounded hover:bg-slate-300 transition-all flex justify-center items-center"
+					>
+						<li class="m-auto">Trip Builder</li>
+					</a>
+					<a
+						href=""
+						class="m-auto box-border h-[75px] w-[150px] rounded bg-primary hover:scale-110 transition-all flex justify-center items-center"
+					>
+						<li class="m-auto">Sign in</li>
+					</a>
+				</div>
 			</div>
-		</div>
 			`,
 		Footer: `
 		<div class="bg-neutral-content bottom-0 inset-x-0 pt-6 pb-8">
