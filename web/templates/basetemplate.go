@@ -16,34 +16,47 @@ func LoadBase() Page {
 			<link rel="stylesheet" type="text/css" href="../static/css/output.css"/>`,
 
 		Navbar: `
-		<div class="grid grid-cols-2 gap-auto">
-				<a href="./home">
-					<img
-						src="../static/images/logos/watdowedo_full_logo.png"
-						alt="logo_watdowedo"
-					/>
-				</a>
-				<div class="grid grid-cols-3 gap-10 list-none">
-					<a
-						href=""
-						class="m-auto box-border h-[75px] w-[150px] rounded hover:bg-slate-300 transition-all flex justify-center items-center"
-					>
-						<li class="m-auto">Trips</li>
+		<div id="navbar-menu" class="hidden">
+				<div class="grid grid-cols-2 gap-auto">
+					<a href="./home">
+						<img
+							src="../static/images/logos/watdowedo_full_logo.png"
+							alt="logo_watdowedo"
+						/>
 					</a>
-					<a
-						href=""
-						class="m-auto box-border h-[75px] w-[150px] rounded hover:bg-slate-300 transition-all flex justify-center items-center"
+					<div
+						class="grid grid-cols-[150px_150px_150px] xl:gap-10 list-none justify-self-end mr-5"
 					>
-						<li class="m-auto">Trip Builder</li>
-					</a>
-					<a
-						href=""
-						class="m-auto box-border h-[75px] w-[150px] rounded bg-primary hover:scale-110 transition-all flex justify-center items-center"
-					>
-						<li class="m-auto">Sign in</li>
-					</a>
+						<a
+							href=""
+							class="m-auto box-border h-[75px] w-[150px] rounded hover:bg-slate-300 transition-all flex justify-center items-center"
+						>
+							<li class="m-auto">Trips</li>
+						</a>
+						<a
+							href=""
+							class="m-auto box-border h-[75px] w-[150px] rounded hover:bg-slate-300 transition-all flex justify-center items-center"
+						>
+							<li class="m-auto">Trip Builder</li>
+						</a>
+						<a
+							href=""
+							class="m-auto box-border h-[75px] w-[150px] rounded bg-primary hover:scale-110 transition-all flex justify-center items-center"
+						>
+							<li class="m-auto">Sign in</li>
+						</a>
+					</div>
 				</div>
 			</div>
+			<div id="navbar-burger" class="hidden">
+				<div class="box-border h-[50px] w-[50px]">
+					<img src="../static/images/icon/menu.png" alt="logo_watdowedo" />
+				</div>			
+			</div>
+			<script
+				type="text/javascript"
+				src="../static/js/basetemplate.js"
+			></script>
 			`,
 		Footer: `
 		<div class="bg-neutral-content bottom-0 inset-x-0 pt-6 pb-8">
