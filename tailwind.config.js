@@ -37,6 +37,9 @@ module.exports = {
 				error: "#be123c",
 				"error-content": "#f43f5e",
 			},
+			gridTemplateRows: {
+				"list-burger": "200px 100px 100px 100px",
+			},
 		},
 	},
 	variants: {
