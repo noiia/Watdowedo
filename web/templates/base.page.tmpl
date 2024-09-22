@@ -53,9 +53,37 @@
 					<div
 						class="box-border h-[50px] w-[50px] my-auto mr-10 justify-self-end"
 					>
-						<button onclick="OpenBurgerNavbar()">
+						<button onclick="toggleMenu()">
 							<img src="../static/images/icon/menu.png" alt="logo_watdowedo" />
 						</button>
+					</div>
+				</div>
+				<div id="list-burger" class="hidden">
+					<div
+						class="grid grid-cols-[200px] grid-rows-list-burger gap-1 bg-slate-200 h-full w-full over-cellphone:w-2/3 items-center justify-center list-none absolute top-0 z-50"
+					>
+						<img
+							src="../static/images/icon/avatar.png"
+							alt="personal picture"
+						/>
+						<a href="" class="mx-auto flex justify-center items-center">
+							<li class="mx-auto hover:text-primary transition-all text-xl">
+								Trips
+							</li>
+						</a>
+						<a href="" class="mx-auto flex justify-center items-center">
+							<li
+								class="mx-auto text-center hover:text-primary transition-all text-xl"
+							>
+								Trip Builder
+							</li>
+						</a>
+						<a
+							href=""
+							class="mx-auto text-center box-border h-[60px] w-[200px] rounded bg-primary hover:scale-110 transition-all flex justify-center items-center"
+						>
+							<li class="mx-auto text-xl">Sign in</li>
+						</a>
 					</div>
 				</div>
 			</div>
