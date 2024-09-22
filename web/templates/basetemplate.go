@@ -49,9 +49,23 @@ func LoadBase() Page {
 				</div>
 			</div>
 			<div id="navbar-burger" class="hidden">
-				<div class="box-border h-[50px] w-[50px]">
-					<img src="../static/images/icon/menu.png" alt="logo_watdowedo" />
-				</div>			
+				<div class="grid grid-cols-2 h-[100px]">
+					<div
+						class="box-border h-[75px] w-[75px] my-auto ml-10 justify-self-start"
+					>
+						<img
+							src="../static/images/logos/watdowedo_tree_logo.png"
+							alt="watdowedo_logo"
+						/>
+					</div>
+					<div
+						class="box-border h-[50px] w-[50px] my-auto mr-10 justify-self-end"
+					>
+						<button onclick="OpenBurgerNavbar()">
+							<img src="../static/images/icon/menu.png" alt="logo_watdowedo" />
+						</button>
+					</div>
+				</div>
 			</div>
 			<script
 				type="text/javascript"
