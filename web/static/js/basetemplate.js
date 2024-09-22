@@ -16,3 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	window.addEventListener("resize", handleResize);
 });
+
+function OpenBurgerNavbar() {
+	console.log("ok");
+}
