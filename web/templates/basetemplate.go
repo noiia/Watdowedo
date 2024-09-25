@@ -72,7 +72,7 @@ func LoadBase() Page {
 					>
 						<img
 							src="../static/images/icon/avatar.png"
-							alt="personal picture"
+							alt="personal picture" 
 						/>
 						<a href="" class="mx-auto flex justify-center items-center">
 							<li class="mx-auto hover:text-primary transition-all text-xl">
