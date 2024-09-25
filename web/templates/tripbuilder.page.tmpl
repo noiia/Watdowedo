@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="eng">
+	<head>
+		{{.Header}}
+		<title>Watdowedo - Home</title>
+	</head>
+	<body class="bg-white">
+		<navbar>
+			<a href="./home">
+				<img
+					src="../static/images/logos/watdowedo_full_logo.png"
+					alt="logo_watdowedo"
+					class="mx-auto"
+				/>
+			</a>
+		</navbar>
+		<form onsubmit="postFormData()">
+			<div>
+				<!-- City text box -->
+				<div class="mx-auto my-10 text-2xl">
+					<div class="flex justify-center items-center">
+						<p class="p-4">Your basement :</p>
+						<input
+							type="text"
+							placeholder="Paris, New york, ..."
+							class="shadow appearance-none border w-1/2 over-cellphone:w-1/5 h-4 p-4 text-xl"
+						/>
+					</div>
+				</div>
+
+				<!-- Radio walking level -->
+				<div
+					class="grid grid-cols-[auto_370px_auto] gap-2 over-cellphone:gap-[100px] mx-auto py-2 over-cellphone:py-10"
+				>
+					<div class="w-[370px] justify-self-end">
+						<input
+							type="radio"
+							class="hidden"
+							id="sm-walker"
+							name="walking-level"
+						/><label
+							for="sm-walker"
+							class="rounded-md radio-checked:bg-primary bg-zinc-300 block p-6 justify-self-end"
+							><img
+								class="box-border h-14 w-14 mx-auto"
+								src="../static/images/icon/person-walking-slowly.png"
+							/>
+							<p class="text-center">Small walker (1-5 km / day)</p></label
+						>
+					</div>
+					<div class="w-[370px] max-w-[370px] justify-self-center">
+						<input
+							type="radio"
+							class="hidden"
+							id="walker"
+							name="walking-level"
+							checked
+						/>
+						<label
+							for="walker"
+							class="rounded-md radio-checked:bg-primary bg-zinc-300 block p-6 min:h-72 sm:h-auto"
+							><img
+								class="box-border h-14 w-14 mx-auto"
+								src="../static/images/icon/person-walking.png"
+							/>
+							<p class="text-center">Walker (+5 km / day)</p>
+						</label>
+					</div>
+					<div class="w-[370px] justify-self-start">
+						<input
+							type="radio"
+							class="hidden"
+							id="gd-walker"
+							name="walking-level"
+						/><label
+							for="gd-walker"
+							class="rounded-md radio-checked:bg-primary bg-zinc-300 block p-6"
+							><img
+								class="box-border h-14 w-14 mx-auto"
+								src="../static/images/icon/person-running.png"
+							/>
+							<p class="text-center">Good walker (+10 km / day)</p></label
+						>
+					</div>
+				</div>
+
+				<!-- Radio valid or not-->
+				<div
+					class="grid grid-cols-2 gap-2 over-cellphone:gap-[100px] mx-auto py-2 over-cellphone:py-10"
+				>
+					<div class="w-[370px] justify-self-end">
+						<input
+							type="radio"
+							class="hidden"
+							id="invalid"
+							name="validity"
+						/><label
+							for="invalid"
+							class="rounded-md radio-checked:bg-primary bg-zinc-300 block p-6"
+							><img
+								class="box-border h-14 w-14 mx-auto"
+								src="../static/images/icon/disability.png"
+							/>
+							<p class="text-center">Invalid</p></label
+						>
+					</div>
+					<div class="w-[370px] justify-self-start">
+						<input
+							type="radio"
+							class="hidden"
+							id="valid"
+							name="validity"
+							checked
+						/><label
+							for="valid"
+							class="rounded-md radio-checked:bg-primary bg-zinc-300 block p-6"
+							><img
+								class="box-border h-14 w-14 mx-auto"
+								src="../static/images/icon/person-walking.png"
+							/>
+							<p class="text-center">Valid</p></label
+						>
+					</div>
+				</div>
+
+				<!-- Radio has a car or not -->
+				<div
+					class="grid grid-cols-2 gap-2 over-cellphone:gap-[100px] mx-auto py-2 over-cellphone:py-10"
+				>
+					<div class="w-[370px] justify-self-end">
+						<input type="radio" class="hidden" id="car" name="drive" />
+						<label
+							for="car"
+							class="rounded-md radio-checked:bg-primary bg-zinc-300 block p-6"
+						>
+							<img
+								class="box-border h-14 w-14 mx-auto"
+								src="../static/images/icon/side-car.png"
+							/>
+							<p class="text-center">I have a car</p>
+						</label>
+					</div>
+					<div class="w-[370px] justify-self-start">
+						<input
+							type="radio"
+							class="hidden"
+							id="foots"
+							name="drive"
+							checked
+						/>
+						<label
+							for="foots"
+							class="rounded-md radio-checked:bg-primary bg-zinc-300 block p-6"
+						>
+							<img
+								class="box-border h-14 w-14 mx-auto"
+								src="../static/images/icon/person-walking.png"
+							/>
+							<p class="text-center">I will use public transports only</p>
+						</label>
+					</div>
+				</div>
+				<!-- Activities -->
+				<!-- Apply button -->
+				<div
+					class="over-cellphone:p-8 over-cellphone:flex over-cellphone:justify-end"
+				>
+					<div
+						class="box-border h-12 over-cellphone:h-20 over-cellphone:w-52 lg:mx-auto bg-primary over-cellphone:rounded-lg text-2xl font-semibold flex justify-center items-center hover:scale-110 transition-all"
+					>
+						<input type="submit" value="Apply!" />
+					</div>
+				</div>
+			</div>
+		</form>
+	</body>
+	<!-- footer -->
+	<footer>
+		{{.Footer}}
+	</footer>
+	<script type="text/javascript" src="../static/js/tripbuilder.js"></script>
+</html>
