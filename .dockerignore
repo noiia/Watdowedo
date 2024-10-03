@@ -1,5 +1,7 @@
-node_module
+node_modules
 logs
 
 README.md
 Docker_readme.md
+package-lock.json
+package.json
