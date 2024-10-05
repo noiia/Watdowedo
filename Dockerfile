@@ -5,9 +5,7 @@ WORKDIR /usr/src/Watdowedo
 
 COPY package*.json ./
 
-RUN npm install -D tailwindcss
-
-RUN npx tailwindcss init
+RUN npm install -D tailwindcss && npx tailwindcss init
 
 ## run process
 ## compile tailwind and golang then launch the app

@@ -1,8 +1,23 @@
 # Docker readme
 
-## Build image 
+## Create a new builder instance that enables for multiple platforms
 ```bash
-docker build -t watdowedo:latest .
+docker buildx create --name mybuilder --use
+```
+## Start it
+```bash
+docker buildx inspect --bootstrap
+```
+
+## Build image 
+Choose your building version between: `linux/amd64,linux/arm64,windows/amd64`
+```bash
+docker buildx build --platform linux/amd64 -t watdowedo:latest .
+```
+
+## Check if it has been built 
+```bash
+docker manifest inspect
 ```
 
 ## Run container
