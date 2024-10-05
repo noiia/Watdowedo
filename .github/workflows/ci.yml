@@ -9,9 +9,8 @@ on:
       - "*"
 
 jobs:
-  build-and-test:
+  test:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -27,24 +26,17 @@ jobs:
       - name: Run tests
         run: go test ./...
 
-  docker-build-ubuntu:
+  docker-build-ubuntu-amd:
     runs-on: ubuntu-latest
-    needs: build-and-test
-
+    needs: test
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+        - name: Set up Docker Buildx
+          uses: docker/setup-buildx-action@v2
 
-      - name: Build Docker image
-        run: docker build -t watdowedo-container:latest .
-
-  docker-build-windows:
-    runs-on: windows-latest
-    needs: build-and-test
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Build Docker image
-        run: docker build -t watdowedo-container:latest .
+        - name: Build and push multi-platform image
+          uses: docker/build-push-action@v4
+          with:
+            context: .
+            platforms: linux/amd64,linux/arm64,windows/amd64
+            push: true
+            tags: watdowedo-container:latest
