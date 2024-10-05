@@ -1,0 +1,50 @@
+name: Watdowedo Pipeline
+
+on:
+  push:
+    branches:
+      - "*"
+  pull_request:
+    branches:
+      - "*"
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.22.4
+          
+      - name: Install dependencies
+        run: go mod tidy && go mod verify
+
+      - name: Run tests
+        run: go test ./...
+
+  docker-build-ubuntu:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build Docker image
+        run: docker build -t watdowedo-container:latest .
+
+  docker-build-windows:
+    runs-on: windows-latest
+    needs: build-and-test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build Docker image
+        run: docker build -t watdowedo-container:latest .
