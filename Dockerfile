@@ -1,5 +1,5 @@
 ## build tailwind dependencies
-FROM node:20 AS build
+FROM node:20.9.0 AS build
 
 WORKDIR /usr/src/Watdowedo
 
@@ -11,7 +11,7 @@ RUN npx tailwindcss init
 
 ## run process
 ## compile tailwind and golang then launch the app
-FROM node:20
+FROM node:20.9.0
 
 RUN npx tailwindcss -i ./web/static/css/tailwind.css -o ./web/static/css/output.css 
 
@@ -21,7 +21,7 @@ WORKDIR /usr/src/Watdowedo
 
 COPY go.mod go.sum ./
 
-RUN go mod download && go mod verify
+RUN go mod tidy && go mod verify
 
 COPY . .
 
