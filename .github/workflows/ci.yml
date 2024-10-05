@@ -36,7 +36,7 @@ jobs:
         - name: Build and push multi-platform image
           uses: docker/build-push-action@v4
           with:
-            context: .
+            context: ./Dockerfile
             platforms: linux/amd64,linux/arm64,windows/amd64
             push: true
             tags: watdowedo-container:latest
