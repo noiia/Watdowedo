@@ -1,5 +1,5 @@
 ## build tailwind dependencies
-FROM node:20.9.0 AS build
+FROM node AS build
 
 WORKDIR /usr/src/Watdowedo
 
@@ -11,7 +11,7 @@ RUN npx tailwindcss init
 
 ## run process
 ## compile tailwind and golang then launch the app
-FROM node:20.9.0
+FROM node
 
 RUN npx tailwindcss -i ./web/static/css/tailwind.css -o ./web/static/css/output.css 
 
