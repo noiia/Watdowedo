@@ -10,7 +10,7 @@ on:
 
 jobs:
   test:
-    runs-on: debian-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -26,8 +26,8 @@ jobs:
       - name: Run tests
         run: go test ./...
 
-  docker-buildx-debian-arm-amd-windows-amd:
-    runs-on: debian-latest
+  docker-buildx-ubuntu-arm-amd-windows-amd:
+    runs-on: ubuntu-latest
     needs: test
     steps:
         - name: Set up Docker Buildx
