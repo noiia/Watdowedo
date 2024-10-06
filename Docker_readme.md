@@ -12,7 +12,7 @@ docker buildx inspect --bootstrap
 ## Build image 
 Choose your building version between: `linux/amd64,linux/arm64,windows/amd64`
 ```bash
-docker buildx build --platform linux/amd64 -t watdowedo:latest .
+docker buildx build --platform linux/amd64 -t watdowedo:latest --load .
 ```
 
 ## Check if it has been built 
