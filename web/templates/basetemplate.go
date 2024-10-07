@@ -1,4 +1,4 @@
-package basetemplate
+package templates
 
 import "html/template"
 
