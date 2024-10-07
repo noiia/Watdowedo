@@ -4,19 +4,22 @@ import (
 	"html/template"
 	"net/http"
 	"path/filepath"
+	"watdowedo/internal/common/logger"
 	basetemplate "watdowedo/web/templates"
 )
 
 func RenderTemplates(w http.ResponseWriter, tmpl string) {
-	template, err := template.ParseFiles(filepath.Join("web", "templates", tmpl+".page.tmpl"))
+	template, err := template.ParseFiles(filepath.Join("../../web", "templates", tmpl+".page.tmpl"))
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		logger.GlobalLogger.Error(err.Error(), http.StatusInternalServerError)
 
 		return
 	}
 	base := basetemplate.LoadBase()
 	if err := template.Execute(w, base); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		logger.GlobalLogger.Error(err.Error(), http.StatusInternalServerError)
 
 		return
 	}
