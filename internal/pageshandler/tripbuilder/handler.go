@@ -5,6 +5,6 @@ import (
 	"watdowedo/internal/common/render"
 )
 
-func TripBuilderHandler(w http.ResponseWriter, r *http.Request) {
+func Handler(w http.ResponseWriter, r *http.Request) {
 	render.RenderTemplates(w, "tripbuilder")
 }
