@@ -8,6 +8,17 @@ import (
 
 const logPermissions = 0o644
 
+var GlobalLogger *slog.Logger
+
+func InitLogger(verbose bool) error {
+	var loggerErr error
+	GlobalLogger, loggerErr = Logger(verbose)
+	if loggerErr != nil {
+		return loggerErr
+	}
+	return nil
+}
+
 // Return a new writer used as logger, create a folder and a logs.log file if it doesn't exist.
 //
 // If true argument is given, it creates a multiwritter that writes in log file and writes in the terminal.
