@@ -1,6 +1,8 @@
 logs
 .env
 node_modules
+.vscode
 
 package-lock.json
 package.json
+__debug_bin*
