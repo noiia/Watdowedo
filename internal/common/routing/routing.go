@@ -12,8 +12,15 @@ import (
 
 var routes = []routeType{
 	newRoute("GET", "/", home.HomeHandler),
+
 	newRoute("GET", "/tripbuilder", tripbuilder.Handler),
 	newRoute("POST", "/tripbuilder/form", tripbuilder.GetFormData),
+
+	newRoute("GET", "/login", tripbuilder.Handler),
+	newRoute("POST", "/login/form", tripbuilder.GetFormData),
+
+	newRoute("GET", "/forgottenpw", tripbuilder.Handler),
+	newRoute("POST", "/forgottenpw/form", tripbuilder.GetFormData),
 }
 
 func newRoute(method, pattern string, handler http.HandlerFunc) routeType {
@@ -27,7 +34,7 @@ type routeType struct {
 }
 
 func Routing() http.Server {
-	assetsPath := filepath.Join("../../web", "static")
+	assetsPath := filepath.Join("web", "static")
 	fs := http.FileServer(http.Dir(assetsPath))
 
 	router := http.NewServeMux()
