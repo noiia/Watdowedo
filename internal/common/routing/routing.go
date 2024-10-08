@@ -3,6 +3,7 @@ package routing
 import (
 	"net/http"
 	"path/filepath"
+	"strconv"
 
 	"watdowedo/internal/common/logger"
 	"watdowedo/internal/pageshandler/home"
@@ -38,13 +39,13 @@ func Routing() http.Server {
 			router.HandleFunc(rt.path, func(w http.ResponseWriter, r *http.Request) {
 				if r.URL.Path != rt.path {
 					http.Error(w, "bad path", http.StatusMethodNotAllowed)
-					logger.GlobalLogger.Error(string(http.StatusMethodNotAllowed) + " : bad path " + r.URL.Path)
+					logger.GlobalLogger.Error(strconv.Itoa(http.StatusMethodNotAllowed) + " : bad path " + r.URL.Path)
 					return
 				}
 
 				if r.Method != rt.method {
 					http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-					logger.GlobalLogger.Error(string(http.StatusMethodNotAllowed) + " : Method not allowed")
+					logger.GlobalLogger.Error(strconv.Itoa(http.StatusMethodNotAllowed) + " : Method not allowed")
 					return
 				}
 

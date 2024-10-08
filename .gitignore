@@ -2,6 +2,7 @@ logs
 .env
 node_modules
 .vscode
+./internal/common/logger/logs
 
 package-lock.json
 package.json
