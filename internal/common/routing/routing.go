@@ -52,7 +52,7 @@ func Routing() http.Server {
 
 				if r.Method != rt.method {
 					http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-					logger.GlobalLogger.Error(strconv.Itoa(http.StatusMethodNotAllowed) + " : Method not allowed")
+					logger.GlobalLogger.Error(strconv.Itoa(http.StatusMethodNotAllowed) + " : Method not allowed at https://watdowedo" + r.URL.Path)
 					return
 				}
 
