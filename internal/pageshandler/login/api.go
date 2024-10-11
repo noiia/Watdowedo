@@ -1,23 +1,37 @@
 package login
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
-	"net/url"
+	"watdowedo/internal/common/logger"
 )
 
-func GetFormData(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("ok ok")
+type Trip_builder_form struct {
+	Destination  string `json:"destination"`
+	WalkingLevel string `json:"walking-level"`
+	Validity     string `json:"validity"`
+	Drive        string `json:"drive"`
+}
 
+func GetFormData(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "POST")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 
-	resp, err := http.PostForm("http://www.watdowedo.local/tripbuilder/form", url.Values{"City": {"Values"}})
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+	decoder := json.NewDecoder(r.Body)
+
+	var unmarshaledValues Trip_builder_form
+
+	if err := decoder.Decode(&unmarshaledValues); err != nil {
+		logger.GlobalLogger.Error("decoding json error from http://watdowedo : " + r.URL.Path + " : " + err.Error())
 	}
-	fmt.Println(resp)
+
+	fmt.Println(unmarshaledValues)
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w)
 
 	return
 }

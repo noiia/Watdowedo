@@ -4,13 +4,16 @@ function getRadioButtonValue(radioName) {
 
 function postFormData() {
 	let jsonObject = {};
+	let destination = "destination";
 	let radioButtonName = ["walking-level", "validity", "drive"];
+
+	jsonObject[destination] = document.getElementById(destination).value;
 	radioButtonName.forEach(
 		(radioName) => (jsonObject[radioName] = getRadioButtonValue(radioName))
 	);
 	console.log(jsonObject);
 
-	fetch("http://www.watdowedo.local/tripbuilder/form", {
+	fetch("http://localhost:8080/tripbuilder/form", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -18,9 +21,6 @@ function postFormData() {
 		body: JSON.stringify(jsonObject),
 	})
 		.then((response) => response.text())
-		.then((data) => {
-			console.log("Réponse du serveur :", data);
-		})
 		.catch((error) => {
 			console.error("Erreur lors de l'envoi du formulaire :", error);
 		});
