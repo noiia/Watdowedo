@@ -6,31 +6,40 @@ import (
 	"strconv"
 
 	"watdowedo/internal/common/logger"
-	"watdowedo/internal/pageshandler/home"
+	"watdowedo/internal/common/render"
 	"watdowedo/internal/pageshandler/tripbuilder"
 )
 
-var routes = []routeType{
-	newRoute("GET", "/", home.HomeHandler),
-
-	newRoute("GET", "/tripbuilder", tripbuilder.Handler),
-	newRoute("POST", "/tripbuilder/form", tripbuilder.GetFormData),
-
-	newRoute("GET", "/login", tripbuilder.Handler),
-	newRoute("POST", "/login/form", tripbuilder.GetFormData),
-
-	newRoute("GET", "/forgottenpw", tripbuilder.Handler),
-	newRoute("POST", "/forgottenpw/form", tripbuilder.GetFormData),
-}
-
-func newRoute(method, pattern string, handler http.HandlerFunc) routeType {
-	return routeType{method, pattern, handler}
-}
-
 type routeType struct {
-	method  string
-	path    string
-	handler http.HandlerFunc
+	method   string
+	path     string
+	filename string
+	handler  http.HandlerFunc
+}
+
+func newRoute(method, pattern, filename string, handler http.HandlerFunc) routeType {
+	return routeType{method, pattern, filename, handler}
+}
+
+func commonHandler(rt routeType) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		render.RenderTemplates(w, rt.filename)
+	}
+}
+
+var routes = []routeType{
+	newRoute("GET", "/", "home", commonHandler(routeType{filename: "home"})),
+
+	newRoute("GET", "/tripbuilder", "tripbuilder", commonHandler(routeType{filename: "tripbuilder"})),
+	newRoute("POST", "/tripbuilder/form", "", tripbuilder.GetFormData),
+
+	newRoute("GET", "/login", "login", commonHandler(routeType{filename: "login"})),
+	newRoute("POST", "/login/form", "", tripbuilder.GetFormData),
+
+	newRoute("GET", "/forgottenpw", "forgottenpw", commonHandler(routeType{filename: "forgottenpw"})),
+	newRoute("POST", "/forgottenpw/form", "", tripbuilder.GetFormData),
+
+	//newRoute("GET", "/trip/{id}", "trip", trip.Handler),
 }
 
 func Routing() http.Server {
@@ -45,16 +54,19 @@ func Routing() http.Server {
 		func(rt routeType) {
 			router.HandleFunc(rt.path, func(w http.ResponseWriter, r *http.Request) {
 				if r.URL.Path != rt.path {
-					http.Error(w, "bad path", http.StatusMethodNotAllowed)
-					logger.GlobalLogger.Error(strconv.Itoa(http.StatusMethodNotAllowed) + " : bad path " + r.URL.Path)
+					http.Error(w, "bad path", http.StatusNotFound)
+					logger.GlobalLogger.Error(r.Method + strconv.Itoa(http.StatusNotFound) + " : bad path " + r.URL.Path)
 					return
 				}
 
 				if r.Method != rt.method {
 					http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-					logger.GlobalLogger.Error(strconv.Itoa(http.StatusMethodNotAllowed) + " : Method not allowed at http://watdowedo" + r.URL.Path)
+					logger.GlobalLogger.Error(r.Method + strconv.Itoa(http.StatusMethodNotAllowed) + " : Method not allowed at http://watdowedo" + r.URL.Path)
 					return
 				}
+
+				logger.GlobalLogger.Info(r.Method + " : http://watdowedo" + r.URL.Path)
+
 				rt.handler(w, r)
 			})
 		}(route)
