@@ -2,7 +2,6 @@ package trip
 
 import (
 	"errors"
-	"fmt"
 	"net/http"
 	"watdowedo/internal/common/logger"
 )
@@ -30,6 +29,5 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	if id, err = getID(r); err != nil {
 		logger.GlobalLogger.Error(r.Method + " - " + err.Error() + " : at " + r.URL.Path)
 	}
-
-	fmt.Println("id :" + id)
+	logger.GlobalLogger.Info("id : " + id)
 }

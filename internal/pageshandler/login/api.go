@@ -2,7 +2,6 @@ package login
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"watdowedo/internal/common/logger"
 )
@@ -26,8 +25,6 @@ func GetFormData(w http.ResponseWriter, r *http.Request) {
 	if err := decoder.Decode(&unmarshaledValues); err != nil {
 		logger.GlobalLogger.Error("decoding json error from http://watdowedo : " + r.URL.Path + " : " + err.Error())
 	}
-
-	fmt.Println(unmarshaledValues)
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)

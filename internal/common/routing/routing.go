@@ -1,11 +1,11 @@
 package routing
 
 import (
-	"fmt"
 	"net/http"
 	"path/filepath"
 	"regexp"
 	"strconv"
+	"strings"
 
 	"watdowedo/internal/common/logger"
 	"watdowedo/internal/common/render"
@@ -31,7 +31,9 @@ func commonHandler(rt routeType) http.HandlerFunc {
 }
 
 var routes = []routeType{
-	newRoute("GET", "/", "home", commonHandler(routeType{filename: "home"})),
+	newRoute("GET", "/", "badpath", commonHandler(routeType{filename: "badpath"})),
+
+	newRoute("GET", "/home", "home", commonHandler(routeType{filename: "home"})),
 
 	newRoute("GET", "/tripbuilder", "tripbuilder", commonHandler(routeType{filename: "tripbuilder"})),
 	newRoute("POST", "/tripbuilder/form", "", tripbuilder.GetFormData),
@@ -56,11 +58,12 @@ func Routing() http.Server {
 	for _, route := range routes {
 		func(rt routeType) {
 			router.HandleFunc(rt.path.String(), func(w http.ResponseWriter, r *http.Request) {
-				fmt.Println(r.URL.Path, rt.path.String())
 				matches := route.path.FindStringSubmatch(r.URL.Path)
+				logger.GlobalLogger.Info("matches : " + strings.Join(matches, " "))
+				logger.GlobalLogger.Info("url : " + r.URL.Path)
 				if len(matches) == 0 {
-					http.Error(w, "bad path", http.StatusNotFound)
 					logger.GlobalLogger.Error(r.Method + strconv.Itoa(http.StatusNotFound) + " : bad path " + r.URL.Path)
+					commonHandler(routeType{filename: "badpath"})
 					return
 				}
 

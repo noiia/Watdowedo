@@ -25,6 +25,11 @@ docker manifest inspect
 docker run -d -p 8080:8080 --name watdowedo-container watdowedo:latest
 ```
 
+## Run container then kill
+```bash
+docker run -d -p 8080:8080 --name watdowedo-container watdowedo:latest -rm
+```
+
 ## Stop container
 ```bash
 docker stop watdowedo-container

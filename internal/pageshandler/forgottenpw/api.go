@@ -2,8 +2,8 @@ package forgottenpw
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
+	"strings"
 	"watdowedo/internal/common/logger"
 )
 
@@ -12,6 +12,10 @@ type Trip_builder_form struct {
 	WalkingLevel string `json:"walking-level"`
 	Validity     string `json:"validity"`
 	Drive        string `json:"drive"`
+}
+
+func (w Trip_builder_form) String() string {
+	return strings.Join([]string{w.Destination, w.WalkingLevel, w.Validity, w.Drive}, " ")
 }
 
 func GetFormData(w http.ResponseWriter, r *http.Request) {
@@ -27,7 +31,7 @@ func GetFormData(w http.ResponseWriter, r *http.Request) {
 		logger.GlobalLogger.Error("decoding json error from http://watdowedo : " + r.URL.Path + " : " + err.Error())
 	}
 
-	fmt.Println(unmarshaledValues)
+	logger.GlobalLogger.Info(unmarshaledValues.String())
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
