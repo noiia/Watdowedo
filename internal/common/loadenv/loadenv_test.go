@@ -7,7 +7,7 @@ import (
 	"watdowedo/internal/common/loadenv"
 )
 
-func LoadEntireEnvFileTest(t *testing.T) {
+func TestLoadEntireEnvFile(t *testing.T) {
 	t.Parallel()
 
 	const envFilePath string = "./test/.env_test"
@@ -37,28 +37,6 @@ func LoadEntireEnvFileTest(t *testing.T) {
 		}
 
 	}
-
-	// if fields.Host != testHost {
-	// 	errornow.KillComment(t, "Load entire env file test : failed\nHost differents \n expected :"+testHost+"gotten :"+fields.Host)
-	// }
-	// if fields.Port != testPort {
-	// 	errornow.KillComment(t, "Load entire env file test : failed\nPort differents \n expected :"+testPort+"gotten :"+fields.Port)
-	// }
-	// if fields.Name != testDbName {
-	// 	errornow.KillComment(t, "Load entire env file test : failed\nDbName differents \n expected :"+testDbName+"gotten :"+fields.Name)
-	// }
-	// if fields.User != testUser {
-	// 	errornow.KillComment(t, "Load entire env file test : failed\nUser differents \n expected :"+testHost+"gotten :"+fields.Host)
-	// }
-	// if fields.Password != testPassword {
-	// 	errornow.KillComment(t, "Load entire env file test : failed\nPassword differents \n expected :"+testHost+"gotten :"+fields.Host)
-	// }
-	// if fields.MaxRetry != testMaxRetry {
-	// 	errornow.KillComment(t, "Load entire env file test : failed\nMaxRetry differents \n expected :"+testHost+"gotten :"+fields.Host)
-	// }
-	// if fields.RetryDelay != testRetryDelay {
-	// 	errornow.KillComment(t, "Load entire env file test : failed\nRetryDelay differents \n expected :"+testHost+"gotten :"+fields.Host)
-	// }
 
 	t.Log("Load entire env file test : success")
 }
