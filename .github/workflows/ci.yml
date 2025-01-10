@@ -24,7 +24,16 @@ jobs:
         run: go mod tidy && go mod verify
 
       - name: Run tests
-        run: go test ./...
+        run: go test ./... -coverprofile=coverage.out
+
+      - name: Upload coverage report (optional)
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: coverage.out
+
+      - name: Display coverage summary
+        run: go tool cover -func=coverage.out
 
   docker-buildx-ubuntu-arm-amd-windows-amd:
     runs-on: ubuntu-latest

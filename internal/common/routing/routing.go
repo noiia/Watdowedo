@@ -3,22 +3,25 @@ package routing
 import (
 	"net/http"
 	"path/filepath"
+	"regexp"
 	"strconv"
+	"strings"
 
 	"watdowedo/internal/common/logger"
 	"watdowedo/internal/common/render"
+	"watdowedo/internal/pageshandler/trip"
 	"watdowedo/internal/pageshandler/tripbuilder"
 )
 
 type routeType struct {
 	method   string
-	path     string
+	path     *regexp.Regexp
 	filename string
 	handler  http.HandlerFunc
 }
 
-func newRoute(method, pattern, filename string, handler http.HandlerFunc) routeType {
-	return routeType{method, pattern, filename, handler}
+func newRoute(method string, pattern string, filename string, handler http.HandlerFunc) routeType {
+	return routeType{method, regexp.MustCompile(pattern), filename, handler}
 }
 
 func commonHandler(rt routeType) http.HandlerFunc {
@@ -28,7 +31,9 @@ func commonHandler(rt routeType) http.HandlerFunc {
 }
 
 var routes = []routeType{
-	newRoute("GET", "/", "home", commonHandler(routeType{filename: "home"})),
+	newRoute("GET", "/", "badpath", commonHandler(routeType{filename: "badpath"})),
+
+	newRoute("GET", "/home", "home", commonHandler(routeType{filename: "home"})),
 
 	newRoute("GET", "/tripbuilder", "tripbuilder", commonHandler(routeType{filename: "tripbuilder"})),
 	newRoute("POST", "/tripbuilder/form", "", tripbuilder.GetFormData),
@@ -39,7 +44,7 @@ var routes = []routeType{
 	newRoute("GET", "/forgottenpw", "forgottenpw", commonHandler(routeType{filename: "forgottenpw"})),
 	newRoute("POST", "/forgottenpw/form", "", tripbuilder.GetFormData),
 
-	//newRoute("GET", "/trip/{id}", "trip", trip.Handler),
+	newRoute("GET", "/trip/", "trip", trip.Handler),
 }
 
 func Routing() http.Server {
@@ -52,10 +57,13 @@ func Routing() http.Server {
 
 	for _, route := range routes {
 		func(rt routeType) {
-			router.HandleFunc(rt.path, func(w http.ResponseWriter, r *http.Request) {
-				if r.URL.Path != rt.path {
-					http.Error(w, "bad path", http.StatusNotFound)
+			router.HandleFunc(rt.path.String(), func(w http.ResponseWriter, r *http.Request) {
+				matches := route.path.FindStringSubmatch(r.URL.Path)
+				logger.GlobalLogger.Info("matches : " + strings.Join(matches, " "))
+				logger.GlobalLogger.Info("url : " + r.URL.Path)
+				if len(matches) == 0 {
 					logger.GlobalLogger.Error(r.Method + strconv.Itoa(http.StatusNotFound) + " : bad path " + r.URL.Path)
+					commonHandler(routeType{filename: "badpath"})
 					return
 				}
 
