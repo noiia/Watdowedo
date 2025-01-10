@@ -24,7 +24,7 @@ jobs:
         run: go mod tidy && go mod verify
 
       - name: Run tests
-        run: go test ./... -coverprofile=coverage.out
+        run: ./launch_test.sh
 
       - name: Upload coverage report (optional)
         uses: actions/upload-artifact@v3

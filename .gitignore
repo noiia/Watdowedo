@@ -4,6 +4,7 @@ node_modules
 .vscode
 ./internal/common/logger/logs
 
+coverage.out
 package-lock.json
 package.json
 __debug_bin*

@@ -5,7 +5,6 @@ import (
 
 	"watdowedo/internal/common/logger"
 	"watdowedo/internal/common/routing"
-	"watdowedo/internal/database"
 )
 
 func main() {
@@ -18,10 +17,11 @@ func main() {
 		panic(err)
 	}
 
-	db, err := database.Connect()
-	if err != nil {
-		logger.GlobalLogger.Error(err.Error())
-	}
+	// db, err := database.Connect()
+	// if err != nil {
+	// 	logger.GlobalLogger.Error(err.Error())
+	// }
+	// defer db.Close()
 
 	server := routing.Routing()
 
@@ -30,7 +30,5 @@ func main() {
 	if err := server.ListenAndServe(); err != nil {
 		logger.GlobalLogger.Error("Server internal error : " + err.Error())
 	}
-
-	defer db.Close()
 
 }
