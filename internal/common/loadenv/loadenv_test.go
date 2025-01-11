@@ -10,9 +10,9 @@ import (
 func TestLoadEntireEnvFile(t *testing.T) {
 	t.Parallel()
 
-	const envFilePath string = "./test/.env_test"
+	const envFilePath string = "./../../../test/.env_test"
 
-	expectedFields := []string{"hosttest", "1111", "dbTest123", "userTest!", "testPassw0rdT3st", "20", "4987"}
+	expectedFields := []string{"watdowedo.db", "5432", "watdowedo_test", "postgres", "postgres", "10", "1000", "user@test.com", "root", "true"}
 
 	fields, err := loadenv.LoadEntireEnvFile(envFilePath)
 	if err != nil {
@@ -23,13 +23,12 @@ func TestLoadEntireEnvFile(t *testing.T) {
 
 	for i := 0; i < val.NumField(); i++ {
 		fieldValue := val.Field(i).Interface()
-
-		if expectedFields[i] == "20" {
-			if 20 != fieldValue {
+		if expectedFields[i] == "10" {
+			if 10 != fieldValue {
 				errornow.KillComment(t)
 			}
-		} else if expectedFields[i] == "4987" {
-			if 4987 != fieldValue {
+		} else if expectedFields[i] == "1000" {
+			if 1000 != fieldValue {
 				errornow.KillComment(t)
 			}
 		} else if expectedFields[i] != fieldValue {

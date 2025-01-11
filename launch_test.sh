@@ -1,5 +1,5 @@
 #!/bin/bash
 
-docker-compose -f ./internal/database/test/docker-compose-test.yml --env-file ./internal/database/test/.env_test up --build -d
+docker-compose -f ./docker-compose.yml --env-file ./test/.env_test up --build -d
 
-docker-compose -f ./internal/database/test/docker-compose-test.yml --env-file ./internal/database/test/.env_test down
+docker-compose -f ./docker-compose.yml --env-file ./test/.env_test down

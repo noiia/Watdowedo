@@ -28,5 +28,3 @@ COPY . .
 RUN go build -v -o /usr/src/Watdowedo ./...
 
 EXPOSE 8080
-
-CMD ["./watdowedo"]

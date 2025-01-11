@@ -54,7 +54,11 @@ services:
     command: >
       sh -c "
       if [ ${TEST_MODE} = true ]; then
+        echo 'Running in test mode';
         go test ./... -v;
+      else
+        echo 'Starting application';
+        ./watdowedo
       fi
       "
     healthcheck:
