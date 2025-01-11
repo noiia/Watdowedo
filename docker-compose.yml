@@ -51,11 +51,13 @@ services:
       DATABASE_USER: ${DATABASE_USER}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       TEST_MODE: ${TEST_MODE:-false}
+    volumes:
+      - ./coverage:/coverage
     command: >
       sh -c "
       if [ ${TEST_MODE} = true ]; then
         echo 'Running in test mode';
-        go test ./... -v;
+        go test ./... -v > /coverage/coverage.out;
       else
         echo 'Starting application';
         ./watdowedo
@@ -70,6 +72,7 @@ services:
 volumes:
   watdowedo_db_data:
   watdowedo_pg_admin:
+  coverage:
 
 networks:
   watdowedo-network:

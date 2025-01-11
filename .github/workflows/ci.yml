@@ -14,26 +14,26 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Setup Go
-        uses: actions/setup-go@v4
-        with:
-          go-version: 1.22.4
-          
-      - name: Install dependencies
-        run: go mod tidy && go mod verify
+      
+      - name: Set up Docker Compose
+        run: sudo apt-get update && sudo apt-get install -y docker-compose
 
       - name: Run tests
-        run: ./launch_test.sh
+        run: sudo chmod +x ./launch_test.sh && ./launch_test.sh
 
-      - name: Upload coverage report (optional)
+      - name: Check watdowedo_app exit status
+        run: |
+          EXIT_CODE=$(docker inspect -f '{{.State.ExitCode}}' watdowedo_app)
+          if [ "$EXIT_CODE" -ne 0 ]; then
+            echo "watdowedo_app failed."
+            exit $EXIT_CODE
+          fi
+
+      - name: Upload coverage report
         uses: actions/upload-artifact@v3
         with:
           name: coverage-report
-          path: coverage.out
-
-      - name: Display coverage summary
-        run: go tool cover -func=coverage.out
+          path: ./coverage/coverage.out
 
   docker-buildx-ubuntu-arm-amd-windows-amd:
     runs-on: ubuntu-latest

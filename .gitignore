@@ -3,6 +3,7 @@ logs
 node_modules
 .vscode
 ./internal/common/logger/logs
+coverage
 
 coverage.out
 package-lock.json
