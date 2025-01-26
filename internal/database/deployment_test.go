@@ -1,6 +1,7 @@
 package database_test
 
 import (
+	"path/filepath"
 	"testing"
 	"watdowedo/internal/common/errornow"
 	"watdowedo/internal/database"
@@ -9,8 +10,8 @@ import (
 func TestDbDeploymentFromFile(t *testing.T) {
 	t.Parallel()
 
-	const dbScriptFilePath string = "./../../test/database_test.sql"
-	const dbEnvFilePath string = "./../../test/.env_test"
+	dbScriptFilePath := filepath.Join(".", "..", "..", "test", "database_test.sql")
+	dbEnvFilePath := filepath.Join(".", "..", "..", "test", ".env_test")
 
 	dbFields, dbPool, err := database.ConnectWithEnvFile(dbEnvFilePath)
 	if err != nil {
@@ -24,12 +25,12 @@ func TestDbDeploymentFromFile(t *testing.T) {
 	}
 
 	if err = database.DeployDbFromFile(dbPool, dbScriptFilePath, true); err != nil {
-		errornow.KillComment(t, "2 : "+err.Error())
+		errornow.KillComment(t, err.Error())
 	}
 
 	exists, err := database.TableExists(dbPool, "public", "type_activities")
 	if err != nil {
-		errornow.KillComment(t, "3 : "+err.Error())
+		errornow.KillComment(t, err.Error())
 	}
 
 	if !exists {
@@ -37,7 +38,7 @@ func TestDbDeploymentFromFile(t *testing.T) {
 	}
 
 	if err := database.DeleteDB(dbPool, dbFields); err != nil {
-		errornow.KillComment(t, "5 : "+err.Error())
+		errornow.KillComment(t, err.Error())
 	}
 
 	t.Log("Deployment test : successfull")
