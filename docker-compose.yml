@@ -60,14 +60,9 @@ services:
         go test ./... -v > /coverage/coverage.out;
       else
         echo 'Starting application';
-        ./watdowedo
+        ./watdowedo -v
       fi
       "
-    healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8080 || exit 1"]
-      timeout: 5s
-      interval: 10s
-      retries: 3
 
 volumes:
   watdowedo_db_data:
