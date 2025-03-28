@@ -22,7 +22,7 @@ func main() {
 		panic(err)
 	}
 
-	env, dbPool, err := database.ConnectWithEnvFile(ENV_PATH)
+	_, dbPool, err := database.ConnectWithEnvFile(ENV_PATH)
 	if err != nil {
 		logger.GlobalLogger.Error(err.Error())
 	}
