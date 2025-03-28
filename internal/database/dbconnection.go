@@ -9,6 +9,15 @@ import (
 	_ "github.com/lib/pq"
 )
 
+// Create a database connexion pool to a dedicated database by giving a .env file path with server variables.
+//
+// Parameters :
+//   - envFilePath : string
+//
+// Returns :
+//   - dbFields : Loaded env structure from loadenv.DbFields
+//   - dbPool : database pool
+//   - error : potential errors from dpPool creation
 func ConnectWithEnvFile(envFilePath string) (loadenv.DbFields, *pgxpool.Pool, error) {
 	dbFields, err := loadenv.LoadDbFields(envFilePath)
 	if err != nil {
@@ -23,10 +32,14 @@ func ConnectWithEnvFile(envFilePath string) (loadenv.DbFields, *pgxpool.Pool, er
 	return dbFields, dbpool, nil
 }
 
-// Connect the server to a database
+// Create a database pool to dbFields loaded env variable.
 //
-// db : field build from addDB function
-// sslMode : disable or able
+// Parameters :
+//   - dbFields (Loaded env structure from loadenv.DbFields) : struct DbFields
+//
+// Returns :
+//   - dbPool : database pool
+//   - error : potential errors from dpPool creation
 func CreateDbPool(dbFields loadenv.DbFields) (*pgxpool.Pool, error) {
 	databaseUrl := fmt.Sprintf("postgres://%s:%s@%s:%s/%s", dbFields.User, dbFields.Password, dbFields.Host, dbFields.Port, dbFields.Name)
 
@@ -37,37 +50,3 @@ func CreateDbPool(dbFields loadenv.DbFields) (*pgxpool.Pool, error) {
 
 	return dbpool, nil
 }
-
-// func Connect(dbFields loadenv.DbFields, sslMode string) (*sql.DB, error) {
-// 	var err error
-// 	var db *sql.DB
-
-// 	psqlConn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s connect_timeout=10", dbFields.Host, dbFields.Port, dbFields.User, dbFields.Password, dbFields.Name, sslMode)
-
-// 	for i := 0; i < dbFields.MaxRetry; i++ {
-// 		db, err = sql.Open("postgres", psqlConn)
-// 		if err == nil {
-// 			if err = db.Ping(); err == nil {
-// 				fmt.Println("ping success")
-// 				if dbFields.Host != "watdowedo.db.test" {
-// 					logger.GlobalLogger.Info("db ping successful")
-// 				}
-
-// 				return db, nil
-// 			}
-
-// 			if dbFields.Host != "watdowedo.db.test" {
-// 				logger.GlobalLogger.Error("db ping error : " + err.Error())
-// 			} else {
-// 				fmt.Println("ping error : " + err.Error())
-// 			}
-// 		}
-// 		time.Sleep(time.Duration(dbFields.RetryDelay) * time.Millisecond)
-// 	}
-
-// 	if db != nil && err == nil {
-// 		return nil, fmt.Errorf("connection failed : db content not nil but database unreachable")
-// 	}
-
-// 	return nil, err
-// }

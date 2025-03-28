@@ -1,27 +1,34 @@
 package routing
 
 import (
+	"fmt"
 	"net/http"
 	"path/filepath"
 	"regexp"
 	"strconv"
-	"strings"
 
 	"watdowedo/internal/common/logger"
+	"watdowedo/internal/common/middleware"
 	"watdowedo/internal/common/render"
 	"watdowedo/internal/pageshandler/trip"
 	"watdowedo/internal/pageshandler/tripbuilder"
 )
 
 type routeType struct {
-	method   string
-	path     *regexp.Regexp
-	filename string
-	handler  http.HandlerFunc
+	method      string
+	path        *regexp.Regexp
+	filename    string
+	handler     http.HandlerFunc
+	middlewares []func(http.Handler) http.Handler
 }
 
-func newRoute(method string, pattern string, filename string, handler http.HandlerFunc) routeType {
-	return routeType{method, regexp.MustCompile(pattern), filename, handler}
+func newRoute(method string, pattern string, filename string, handler http.HandlerFunc, middlewares ...func(http.Handler) http.Handler) routeType {
+	finalHandler := http.Handler(handler)
+	for _, mw := range middlewares {
+		finalHandler = mw(finalHandler)
+	}
+
+	return routeType{method, regexp.MustCompile(pattern), filename, finalHandler.ServeHTTP, middlewares}
 }
 
 func commonHandler(rt routeType) http.HandlerFunc {
@@ -41,6 +48,8 @@ var routes = []routeType{
 	newRoute("GET", "/login", "login", commonHandler(routeType{filename: "login"})),
 	newRoute("POST", "/login/form", "", tripbuilder.GetFormData),
 
+	newRoute("GET", "/profil/personal-data", "", tripbuilder.GetFormData, middleware.IsLogged),
+
 	newRoute("GET", "/forgottenpw", "forgottenpw", commonHandler(routeType{filename: "forgottenpw"})),
 	newRoute("POST", "/forgottenpw/form", "", tripbuilder.GetFormData),
 
@@ -59,14 +68,12 @@ func Routing() http.Server {
 		func(rt routeType) {
 			router.HandleFunc(rt.path.String(), func(w http.ResponseWriter, r *http.Request) {
 				matches := route.path.FindStringSubmatch(r.URL.Path)
-				logger.GlobalLogger.Info("matches : " + strings.Join(matches, " "))
-				logger.GlobalLogger.Info("url : " + r.URL.Path)
+				fmt.Println(matches)
 				if len(matches) == 0 {
 					logger.GlobalLogger.Error(r.Method + strconv.Itoa(http.StatusNotFound) + " : bad path " + r.URL.Path)
-					commonHandler(routeType{filename: "badpath"})
+					render.RenderTemplates(w, "badpath")
 					return
 				}
-
 				if r.Method != rt.method {
 					http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 					logger.GlobalLogger.Error(r.Method + strconv.Itoa(http.StatusMethodNotAllowed) + " : Method not allowed at http://watdowedo" + r.URL.Path)
