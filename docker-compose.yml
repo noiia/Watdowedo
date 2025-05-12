@@ -1,7 +1,7 @@
 services:
   watdowedo.db:
     image: postgres:latest
-    container_name: watdowedo_psql
+    container_name: ${ENV}.watdowedo_psql
     environment:
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
@@ -19,8 +19,8 @@ services:
       retries: 10
 
   watdowedo.pgadmin:
-    image:  dpage/pgadmin4:latest
-    container_name: watdowedo_pgadmin
+    image: dpage/pgadmin4:latest
+    container_name: ${ENV}.watdowedo_pgadmin
     restart: always
     networks:
       - watdowedo-network
@@ -32,14 +32,14 @@ services:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_USER}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
     depends_on:
-      watdowedo.db: 
+      watdowedo.db:
         condition: service_healthy
 
   watdowedo:
-    container_name: watdowedo_app
+    container_name: ${ENV}.watdowedo_app
     build: .
     depends_on:
-      watdowedo.db: 
+      watdowedo.db:
         condition: service_healthy
     networks:
       - watdowedo-network
@@ -57,12 +57,42 @@ services:
       sh -c "
       if [ ${TEST_MODE} = true ]; then
         echo 'Running in test mode';
-        go test ./... -v > /coverage/coverage.out;
+        go test -v ./...  | tee /coverage/coverage.out;
+        exit_code=$?
+        exit $exit_code
       else
         echo 'Starting application';
         ./watdowedo -v
       fi
       "
+
+  container-monitor:
+    image: docker:cli
+    container_name: ${ENV}.container_monitor
+    restart: on-failure
+    environment:
+      TEST_MODE: ${TEST_MODE:-false}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    entrypoint: >
+      sh -c "
+        if ${TEST_MODE}; then
+          echo 'Starting container monitor...'
+          if [ \"$(docker inspect -f '{{.State.Running}}' test.watdowedo_app 2>/dev/null)\" = 'false' ]; then
+            exit_code=$(docker inspect -f '{{.State.ExitCode}}' test.watdowedo_app)
+            echo \"watdowedo_app has exited with code $${exit_code}\"
+            
+            if [ \"$${exit_code}\" != '0' ]; then
+              echo \"Container exited with error code $${exit_code}. Taking action...\"
+            else
+              echo \"Container exited normally with code 0\"
+            fi
+            exit $${exit_code}
+          fi
+        fi
+      "
+    depends_on:
+      - watdowedo
 
 volumes:
   watdowedo_db_data:
@@ -74,6 +104,6 @@ networks:
     driver: bridge
     ipam:
       driver: default
-      config: 
-        - subnet: 172.20.0.0/16
-          gateway: 172.20.0.1
+      config:
+        - subnet: ${NETWORK}/29
+          gateway: ${NETWORK_GATEWAY}

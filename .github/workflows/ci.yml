@@ -23,14 +23,14 @@ jobs:
 
       - name: Check watdowedo_app exit status
         run: |
-          EXIT_CODE=$(docker inspect -f '{{.State.ExitCode}}' watdowedo_app)
+          EXIT_CODE=$(docker inspect -f '{{.State.ExitCode}}' test.watdowedo_app)
           if [ "$EXIT_CODE" -ne 0 ]; then
             echo "watdowedo_app failed."
             exit $EXIT_CODE
           fi
 
       - name: Upload coverage report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-report
           path: ./coverage/coverage.out

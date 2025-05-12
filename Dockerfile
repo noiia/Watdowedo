@@ -13,7 +13,7 @@ FROM --platform=$BUILDPLATFORM node:latest
 
 RUN npx tailwindcss -i ./web/static/css/tailwind.css -o ./web/static/css/output.css 
 
-FROM --platform=$BUILDPLATFORM golang:1.22.4
+FROM --platform=$BUILDPLATFORM golang:1.24.3
 
 RUN apt-get update && apt-get install -y
 

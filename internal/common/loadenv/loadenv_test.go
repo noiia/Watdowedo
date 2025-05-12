@@ -11,7 +11,7 @@ import (
 func TestLoadEntireEnvFile(t *testing.T) {
 	t.Parallel()
 
-	envFilePath := filepath.Join(".", "..", "..", "test", ".env_test")
+	envFilePath := filepath.FromSlash("/usr/src/Watdowedo/test/.env_test")
 
 	expectedFields := []string{"watdowedo.db", "5432", "watdowedo_test", "postgres", "postgres", "10", "1000", "user@test.com", "root", "true"}
 
