@@ -1,7 +1,6 @@
 package editstring
 
 import (
-	"fmt"
 	"runtime"
 	"strings"
 	"unicode"
@@ -80,8 +79,6 @@ func GetPathElementAsSlice(path string) []string {
 	for _, value := range splitedPath {
 		finalPath = append(finalPath, value+separator)
 	}
-
-	fmt.Println(finalPath)
 
 	return finalPath
 }

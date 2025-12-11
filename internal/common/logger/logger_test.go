@@ -4,9 +4,9 @@ import (
 	"os"
 	"testing"
 
-	"gobackup/internal/common/editstring"
-	"gobackup/internal/common/errornow"
-	"gobackup/internal/common/logger"
+	"watdowedo/internal/common/editstring"
+	"watdowedo/internal/common/errornow"
+	"watdowedo/internal/common/logger"
 )
 
 func TestLogger(t *testing.T) {

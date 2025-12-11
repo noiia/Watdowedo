@@ -1,0 +1,94 @@
+package routing
+
+import (
+	"fmt"
+	"net/http"
+	"path/filepath"
+	"regexp"
+	"strconv"
+
+	"watdowedo/internal/common/logger"
+	"watdowedo/internal/common/middleware"
+	"watdowedo/internal/common/render"
+	"watdowedo/internal/pageshandler/trip"
+	"watdowedo/internal/pageshandler/tripbuilder"
+)
+
+type routeType struct {
+	method      string
+	path        *regexp.Regexp
+	filename    string
+	handler     http.HandlerFunc
+	middlewares []func(http.Handler) http.Handler
+}
+
+func newRoute(method string, pattern string, filename string, handler http.HandlerFunc, middlewares ...func(http.Handler) http.Handler) routeType {
+	finalHandler := http.Handler(handler)
+	for _, mw := range middlewares {
+		finalHandler = mw(finalHandler)
+	}
+
+	return routeType{method, regexp.MustCompile(pattern), filename, finalHandler.ServeHTTP, middlewares}
+}
+
+func commonHandler(rt routeType) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		render.RenderTemplates(w, rt.filename)
+	}
+}
+
+var routes = []routeType{
+	newRoute("GET", "/", "badpath", commonHandler(routeType{filename: "badpath"})),
+
+	newRoute("GET", "/home", "home", commonHandler(routeType{filename: "home"})),
+
+	newRoute("GET", "/tripbuilder", "tripbuilder", commonHandler(routeType{filename: "tripbuilder"})),
+	newRoute("POST", "/tripbuilder/form", "", tripbuilder.GetFormData),
+
+	newRoute("GET", "/login", "login", commonHandler(routeType{filename: "login"})),
+	newRoute("POST", "/login/form", "", tripbuilder.GetFormData),
+
+	newRoute("GET", "/profil/personal-data", "", tripbuilder.GetFormData, middleware.IsLogged),
+
+	newRoute("GET", "/forgottenpw", "forgottenpw", commonHandler(routeType{filename: "forgottenpw"})),
+	newRoute("POST", "/forgottenpw/form", "", tripbuilder.GetFormData),
+
+	newRoute("GET", "/trip/", "trip", trip.Handler),
+}
+
+func Routing() http.Server {
+	assetsPath := filepath.Join("web", "static")
+	fs := http.FileServer(http.Dir(assetsPath))
+
+	router := http.NewServeMux()
+
+	router.Handle("/static/", http.StripPrefix("/static/", fs))
+
+	for _, route := range routes {
+		func(rt routeType) {
+			router.HandleFunc(rt.path.String(), func(w http.ResponseWriter, r *http.Request) {
+				matches := route.path.FindStringSubmatch(r.URL.Path)
+				fmt.Println(matches)
+				if len(matches) == 0 {
+					logger.GlobalLogger.Error(r.Method + strconv.Itoa(http.StatusNotFound) + " : bad path " + r.URL.Path)
+					render.RenderTemplates(w, "badpath")
+					return
+				}
+				if r.Method != rt.method {
+					http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+					logger.GlobalLogger.Error(r.Method + strconv.Itoa(http.StatusMethodNotAllowed) + " : Method not allowed at http://watdowedo" + r.URL.Path)
+					return
+				}
+
+				logger.GlobalLogger.Info(r.Method + " : http://watdowedo" + r.URL.Path)
+
+				rt.handler(w, r)
+			})
+		}(route)
+	}
+
+	return http.Server{
+		Addr:    ":8080",
+		Handler: router,
+	}
+}

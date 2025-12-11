@@ -3,8 +3,8 @@ package editstring_test
 import (
 	"testing"
 
-	"gobackup/internal/common/editstring"
-	"gobackup/internal/common/errornow"
+	"watdowedo/internal/common/editstring"
+	"watdowedo/internal/common/errornow"
 )
 
 func TestClean(t *testing.T) {
